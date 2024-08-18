@@ -1,0 +1,110 @@
+[gd_scene load_steps=10 format=3 uid="uid://dv88jwrrbalns"]
+
+[ext_resource type="Script" path="res://scenes/start_scene/start_screen.gd" id="1_45jn7"]
+[ext_resource type="PackedScene" uid="uid://nxpbsfd1se4x" path="res://background/background.tscn" id="1_osdjd"]
+[ext_resource type="LabelSettings" uid="uid://dqrpnq5x7ibir" path="res://font/game_menu_font.tres" id="2_tj0tf"]
+[ext_resource type="AudioStream" uid="uid://ugws7dlrv2cs" path="res://audio/sfx/FUI Holographic Button Press-1.wav" id="4_wgvq5"]
+[ext_resource type="AudioStream" uid="uid://bofdunhmtrng" path="res://audio/sfx/FUI Button Beep Clean.wav" id="5_mj0rr"]
+
+[sub_resource type="Animation" id="Animation_sg102"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Label:label_settings:shadow_color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 0.97267, 0, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_ywiwj"]
+resource_name = "title_shadow"
+length = 6.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Label:label_settings:shadow_color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1.03333, 2.03333, 3.03333, 4, 5.03333, 6),
+"transitions": PackedFloat32Array(0.3, 3, 0.3, 3, 0.3, 3, 0.3),
+"update": 0,
+"values": [Color(1, 0.97267, 0, 1), Color(1, 0.756863, 0, 0), Color(1, 0, 0.0439024, 1), Color(1, 0.756863, 0, 0), Color(0.0407354, 0.771546, 0.749222, 1), Color(1, 0.756863, 0, 0), Color(1, 0.97267, 0, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_0gmr1"]
+_data = {
+"RESET": SubResource("Animation_sg102"),
+"title_shadow": SubResource("Animation_ywiwj")
+}
+
+[sub_resource type="SystemFont" id="SystemFont_g3eb5"]
+font_names = PackedStringArray("Magneto")
+
+[node name="StartScreen" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_45jn7")
+
+[node name="BackgroundTst" parent="." instance=ExtResource("1_osdjd")]
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 0
+offset_left = 240.0
+offset_top = 168.0
+offset_right = 886.0
+offset_bottom = 271.0
+text = "Space Balls"
+label_settings = ExtResource("2_tj0tf")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_0gmr1")
+}
+autoplay = "title_shadow"
+
+[node name="ButtonExit" type="Button" parent="."]
+layout_mode = 0
+offset_left = 384.0
+offset_top = 488.0
+offset_right = 755.0
+offset_bottom = 560.0
+theme_override_fonts/font = SubResource("SystemFont_g3eb5")
+theme_override_font_sizes/font_size = 56
+text = "Exit"
+flat = true
+
+[node name="ButtonStart" type="Button" parent="."]
+layout_mode = 0
+offset_left = 384.0
+offset_top = 384.0
+offset_right = 755.0
+offset_bottom = 456.0
+theme_override_fonts/font = SubResource("SystemFont_g3eb5")
+theme_override_font_sizes/font_size = 56
+text = "Start Game
+"
+flat = true
+
+[node name="SFX_Button_Hover1" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_wgvq5")
+
+[node name="SFX_Button_Click" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("5_mj0rr")
+
+[connection signal="mouse_entered" from="ButtonExit" to="." method="_on_button_exit_mouse_entered"]
+[connection signal="pressed" from="ButtonExit" to="." method="_on_button_exit_pressed"]
+[connection signal="mouse_entered" from="ButtonStart" to="." method="_on_button_start_mouse_entered"]
+[connection signal="pressed" from="ButtonStart" to="." method="_on_button_start_pressed"]

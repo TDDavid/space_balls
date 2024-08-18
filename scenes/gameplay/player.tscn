@@ -1,0 +1,17 @@
+[gd_scene load_steps=4 format=3 uid="uid://ck8q78iqr2we7"]
+
+[ext_resource type="Script" path="res://scenes/gameplay/player.gd" id="1_02p7l"]
+
+[sub_resource type="Gradient" id="Gradient_88pgr"]
+offsets = PackedFloat32Array(0.126506, 1)
+colors = PackedColorArray(0.98155, 0.863078, 0.874885, 1, 0.415686, 1, 1, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_7rd1h"]
+gradient = SubResource("Gradient_88pgr")
+fill_to = Vector2(0.521739, 1)
+
+[node name="Player" type="Node2D"]
+script = ExtResource("1_02p7l")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = SubResource("GradientTexture2D_7rd1h")

@@ -1,0 +1,10 @@
+[gd_resource type="LabelSettings" load_steps=2 format=3 uid="uid://dqrpnq5x7ibir"]
+
+[sub_resource type="SystemFont" id="SystemFont_kkp6a"]
+font_names = PackedStringArray("Magneto")
+
+[resource]
+font = SubResource("SystemFont_kkp6a")
+font_size = 75
+shadow_size = 5
+shadow_color = Color(1, 0.97267, 0, 1)

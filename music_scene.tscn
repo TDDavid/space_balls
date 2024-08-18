@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://b00h2mrxho0kn"]
+
+[ext_resource type="AudioStream" uid="uid://ugws7dlrv2cs" path="res://audio/sfx/FUI Holographic Button Press-1.wav" id="1_h3tlj"]
+
+[node name="SFX_Button_Hover" type="AudioStreamPlayer"]
+stream = ExtResource("1_h3tlj")

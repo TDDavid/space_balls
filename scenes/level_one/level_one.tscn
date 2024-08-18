@@ -1,0 +1,79 @@
+[gd_scene load_steps=6 format=3 uid="uid://c71f4hjq2v7sf"]
+
+[ext_resource type="Script" path="res://scenes/level_one/level_one.gd" id="1_yy5mj"]
+[ext_resource type="PackedScene" uid="uid://nxpbsfd1se4x" path="res://background/background.tscn" id="2_0bltc"]
+[ext_resource type="PackedScene" uid="uid://ck8q78iqr2we7" path="res://scenes/gameplay/player.tscn" id="3_x3xfw"]
+[ext_resource type="LabelSettings" uid="uid://lichyuwa0fja" path="res://font/game_play_font.tres" id="4_cgvtd"]
+
+[sub_resource type="Curve2D" id="Curve2D_ms0yk"]
+_data = {
+"points": PackedVector2Array(67.7774, 191.421, -67.7774, -191.421, 847, 282, 39.9455, -34.1329, -39.9455, 34.1329, 266, 162, 104.887, -8.4757, -104.887, 8.4757, 186, 261, -11.6541, -65.6867, 11.6541, 65.6867, 127, 567, -6.35678, 22.2487, 6.35678, -22.2487, 222, 556, -26.4866, 14.8325, 26.4866, -14.8325, 247, 438, -26.4881, -80.7513, 26.4881, 80.7513, 321, 465, -57.211, 47.6759, 57.211, -47.6759, 509, 469, -15.8919, -43.4379, 15.8919, 43.4379, 650, 394, 0, 0, 0, 0, 719, 450, -25.4271, 9.53517, 25.4271, -9.53517, 833, 444, 52.9732, 145.146, -52.9732, -145.146, 847, 282)
+}
+point_count = 12
+
+[node name="Node2D" type="Node2D"]
+script = ExtResource("1_yy5mj")
+
+[node name="BackgroundTst" parent="." instance=ExtResource("2_0bltc")]
+
+[node name="Player" parent="." instance=ExtResource("3_x3xfw")]
+visible = false
+position = Vector2(599, 297)
+
+[node name="Path2D" type="Path2D" parent="."]
+position = Vector2(33, -72)
+curve = SubResource("Curve2D_ms0yk")
+
+[node name="Timer" type="Timer" parent="."]
+one_shot = true
+autostart = true
+
+[node name="TimerAddBallAuto" type="Timer" parent="."]
+wait_time = 0.25
+
+[node name="Line2D" type="Line2D" parent="."]
+width = 2.0
+default_color = Color(0.834351, 0, 0.293161, 1)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="labelTime" type="Label" parent="VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "Time"
+label_settings = ExtResource("4_cgvtd")
+
+[node name="valueTime" type="Label" parent="VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "0"
+label_settings = ExtResource("4_cgvtd")
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="labelScore" type="Label" parent="VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+text = "Score
+"
+label_settings = ExtResource("4_cgvtd")
+
+[node name="valueScore" type="Label" parent="VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+text = "0"
+label_settings = ExtResource("4_cgvtd")
+
+[node name="labelAutospawn" type="Label" parent="VBoxContainer"]
+visible = false
+layout_mode = 2
+text = "Auto Spawner ON
+"
+label_settings = ExtResource("4_cgvtd")
+
+[connection signal="add_ball" from="Player" to="." method="_on_player_add_ball"]
+[connection signal="add_ball_auto" from="Player" to="." method="_on_player_add_ball_auto"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
+[connection signal="timeout" from="TimerAddBallAuto" to="." method="_on_timer_add_ball_auto_timeout"]

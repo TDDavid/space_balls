@@ -1,0 +1,9 @@
+[gd_resource type="LabelSettings" load_steps=2 format=3 uid="uid://lichyuwa0fja"]
+
+[sub_resource type="SystemFont" id="SystemFont_kkp6a"]
+font_names = PackedStringArray("Bauhaus 93")
+
+[resource]
+font = SubResource("SystemFont_kkp6a")
+font_size = 22
+shadow_color = Color(0.447059, 0.435294, 0, 1)
