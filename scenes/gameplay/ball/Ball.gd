@@ -13,6 +13,11 @@ signal collided_with
 func _ready():
 	direction = initial_direction
 	$Label.text = str(id)
+	$Label.visible = Globals.DEBUG_ENABLED
+	Globals.connect("debug_toggled", toggle_label)
+
+func toggle_label(enabled: bool):
+	$Label.visible = enabled
 
 func _physics_process(delta):
 	if !already_collided:

@@ -5,39 +5,50 @@ var max_size = 999
 
 var last_head_pos: Vector2
 
+# ball list direction
+# movement: <------------
+# balls in list: X X X X X X X
+# index in list: 0 1 2 3 4 5 6
+
 signal matched_count
 
 func process(delta):
 	var count: int = list.size()
-	var curr_color: Color
+	var current_color: Color
 	var current_matches: Array = []
 	var all_matches: Array = []
+	var has_current_color = false
 	while count > 0:
 		var idx = count - 1
-		update_progress(delta, idx, count)
-		
+		update_progress(delta, idx)
+				
+		var obj_color = list[idx]["ball"].modulate
 		if count == list.size():
-			curr_color = list[idx]["ball"].modulate
+			current_color = obj_color
+			current_matches.append(idx)
+			has_current_color = true
+		elif obj_color == current_color:
+			current_matches.append(idx)
+			has_current_color = true
 		else:
-			if curr_color == list[idx]["ball"].modulate:
-				current_matches.append(idx)
-			else:
-				if current_matches.size() >= 3:
-					all_matches.append(current_matches.duplicate())
-				current_matches.clear()
-				current_matches.append(idx)
-				curr_color = list[idx]["ball"].modulate
+			if has_current_color and current_matches.size() >= 3:
+				all_matches.append(current_matches.duplicate())
+			current_matches.clear()
+			current_color = obj_color
+			current_matches.append(idx)
+			has_current_color = true
 				
 		count -= 1
 	
 	for indexes in all_matches:
 		matched_count.emit(indexes.size())
 		for idx in indexes:
-			list[idx]["ball"].queue_free()
+			var remove_ball = list[idx]["ball"]
 			list.remove_at(idx)
+			remove_ball.queue_free()
 
-func update_progress(delta, idx, total_count):
-	if total_count == list.size():
+func update_progress(delta, idx):
+	if idx == (list.size() - 1):
 		var new_pos = list[idx]["ball"].global_position
 		
 		list[idx]["velocity"] = new_pos - last_head_pos
@@ -65,7 +76,7 @@ func add_ball_after(new_ball: Ball, at_id: int, after: bool = true):
 			item_to_add = {"ball": new_ball, "progress": list[idx]["progress"]}
 			
 		if curr_ball.id >= at_id:
-			ball["progress"] -= 15
+			ball["progress"] -= 30
 			
 		idx += 1
 	
@@ -75,7 +86,6 @@ func add_ball_after(new_ball: Ball, at_id: int, after: bool = true):
 	
 func get_data(id: int) -> Dictionary:
 	var retval: Dictionary
-	var idx: int = 0
 	for ball in list:
 		if ball["ball"].id == id:
 			retval = ball
@@ -85,7 +95,6 @@ func get_data(id: int) -> Dictionary:
 	
 func get_ball(id: int) -> Ball:
 	var retval: Ball
-	var idx: int = 0
 	for ball in list:
 		if ball["ball"].id == id:
 			retval = ball["ball"]

@@ -14,17 +14,38 @@ var time_now = 0
 
 var score_counter = 0
 
+func add_first_ball():
+	var first_ball = ball.instantiate() as Ball
+	first_ball.set_color(colors.pick_random())
+	ball_id += 1
+	first_ball.id = ball_id
+	first_ball.collided_with.connect(_on_ball_collided_with)
+	var path_to_follow = PathFollow2D.new()
+	$Path2D.add_child(path_to_follow)
+	first_ball.position = Vector2(0,0)
+	path_to_follow.add_child(first_ball)
+	
+	list.add_ball(first_ball)
+
+func toggle_vel_vector(enabled: bool):
+	$Line2D.visible = enabled
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	Globals.connect("debug_toggled", toggle_vel_vector)
+	$Line2D.visible = Globals.DEBUG_ENABLED
+	
 	var path_length = $Path2D.curve.get_baked_length()
-	var possible_ball_count = path_length / 16
+	var possible_ball_count = path_length / 30
 	list.max_size = possible_ball_count
 	time_start = Time.get_unix_time_from_system()
+	
+	add_first_ball()
 	
 	list.connect("matched_count", on_matched_count)
 	AudioSubsystem.get_node("Music_Gameplay").play()
 	prepare_ball()
-	
+
 func on_matched_count(count: int):
 	score_counter += count
 	$VBoxContainer/HBoxContainer2/valueScore.set_text(str(score_counter))
@@ -87,16 +108,6 @@ func _on_ball_collided_with(projectile: Ball, collided_with: int):
 		$Path2D.add_child(path_to_follow)
 		projectile.position = Vector2(0,0)
 		projectile.reparent(path_to_follow, false)
-	
-func _on_timer_timeout():
-	var new_ball = ball.instantiate() as Ball
-	ball_id += 1
-	new_ball.id = ball_id
-	
-	var path_to_follow = PathFollow2D.new()
-	list.add_ball(new_ball)
-	$Path2D.add_child(path_to_follow)
-	path_to_follow.add_child(new_ball)
 
 
 func _on_player_add_ball_auto():
