@@ -1,0 +1,25 @@
+[gd_scene load_steps=6 format=3 uid="uid://pmwlk00n08nl"]
+
+[ext_resource type="AudioStream" uid="uid://ugws7dlrv2cs" path="res://audio/sfx/FUI Holographic Button Press-1.wav" id="1_d3tbw"]
+[ext_resource type="AudioStream" uid="uid://bofdunhmtrng" path="res://audio/sfx/FUI Button Beep Clean.wav" id="2_mhxy1"]
+[ext_resource type="AudioStream" uid="uid://cqokblbofdlt5" path="res://audio/sfx/SCIEnrg_Energy Orb_05.wav" id="3_brk81"]
+[ext_resource type="AudioStream" uid="uid://c65vyso8p47wi" path="res://audio/sfx/MOTRSrvo_Plasma Rifle Arm_01.wav" id="4_3jhf0"]
+[ext_resource type="AudioStream" uid="uid://dgydv3e7kp1fl" path="res://audio/music/Stream Loops 2024-07-04.ogg" id="5_lpw73"]
+
+[node name="AudioSubsystem" type="Node2D"]
+
+[node name="SFX_Button_Hover" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("1_d3tbw")
+
+[node name="SFX_Button_Click" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("2_mhxy1")
+
+[node name="SFX_Shoot_Ball" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_brk81")
+
+[node name="SFX_Reload_Ball" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_3jhf0")
+
+[node name="Music_Gameplay" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("5_lpw73")
+parameters/looping = true
