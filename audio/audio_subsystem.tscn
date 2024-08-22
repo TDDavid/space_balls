@@ -1,12 +1,14 @@
-[gd_scene load_steps=6 format=3 uid="uid://pmwlk00n08nl"]
+[gd_scene load_steps=7 format=3 uid="uid://pmwlk00n08nl"]
 
 [ext_resource type="AudioStream" uid="uid://ugws7dlrv2cs" path="res://audio/sfx/FUI Holographic Button Press-1.wav" id="1_d3tbw"]
+[ext_resource type="Script" path="res://audio/audio_subsystem.gd" id="1_lromt"]
 [ext_resource type="AudioStream" uid="uid://bofdunhmtrng" path="res://audio/sfx/FUI Button Beep Clean.wav" id="2_mhxy1"]
 [ext_resource type="AudioStream" uid="uid://cqokblbofdlt5" path="res://audio/sfx/SCIEnrg_Energy Orb_05.wav" id="3_brk81"]
 [ext_resource type="AudioStream" uid="uid://c65vyso8p47wi" path="res://audio/sfx/MOTRSrvo_Plasma Rifle Arm_01.wav" id="4_3jhf0"]
 [ext_resource type="AudioStream" uid="uid://dgydv3e7kp1fl" path="res://audio/music/Stream Loops 2024-07-04.ogg" id="5_lpw73"]
 
 [node name="AudioSubsystem" type="Node2D"]
+script = ExtResource("1_lromt")
 
 [node name="SFX_Button_Hover" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("1_d3tbw")
